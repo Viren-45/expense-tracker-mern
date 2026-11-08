@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Expense } from "./types/expense";
 import { getExpenses } from "./api/expenses";
+import ExpenseList from "./components/ExpenseList";
 
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -27,26 +28,7 @@ function App() {
 
         {error && <p className="text-red-600">Error: {error}</p>}
 
-        {!isLoading && !error && expenses.length === 0 && (
-          <p className="text-gray-500">No expenses yet.</p>
-        )}
-
-        <ul className="space-y-3">
-          {expenses.map((expense) => (
-            <li
-              key={expense._id}
-              className="flex items-center justify-between rounded-lg bg-white p-4 shadow=sm"
-            >
-              <div>
-                <p className="font-medium text-gray-900">{expense.title}</p>
-                <p className="text-sm text-gray-500">{expense.category}</p>
-              </div>
-              <p className="font-semibold text-gray-900">
-                ${expense.amount.toFixed(2)}
-              </p>
-            </li>
-          ))}
-        </ul>
+        {!isLoading && !error && <ExpenseList expenses={expenses} />}
       </div>
     </main>
   );
