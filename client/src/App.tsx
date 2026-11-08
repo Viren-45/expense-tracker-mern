@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Expense } from "./types/expense";
 import { getExpenses } from "./api/expenses";
 import ExpenseList from "./components/ExpenseList";
+import ExpenseForm from "./components/ExpenseForm";
 
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -23,6 +24,10 @@ function App() {
         <h1 className="mb-6 text-3xl font-bold text-gray-900">
           Expense Tracker
         </h1>
+
+        <ExpenseForm
+          onCreated={(expense) => setExpenses((prev) => [expense, ...prev])}
+        />
 
         {isLoading && <p className="text-gray-500">Loading expenses...</p>}
 
